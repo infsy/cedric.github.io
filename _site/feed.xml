@@ -5,386 +5,226 @@
         <description>Blog about Cloud security and GenAI by Cedric Thibault</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 17 Dec 2023 17:12:04 -0500</pubDate>
-        <lastBuildDate>Sun, 17 Dec 2023 17:12:04 -0500</lastBuildDate>
+        <pubDate>Sat, 27 Jan 2024 22:53:34 -0500</pubDate>
+        <lastBuildDate>Sat, 27 Jan 2024 22:53:34 -0500</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
                 <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
+                <description>&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Malgré de nombreuses mesures de protection ajoutées par AWS pour sécuriser les buckets S3, de nombreux incidents de brèches de données continuent à se produire par erreur de configuration du client. Cet article vise à vous détailler la mise en place de mécanismes de prévention qui permettent de se protéger contre une exposition accidentelle de bucket dans une organisation AWS.&lt;/p&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;En réalité je devrais plutôt titrer cet article, en finir avec les buckets S3 publics non désirés! Dans une organisation AWS d’importance, il est probable que l’exposition de buckets soit une nécessité: site web statique, mise à disposition d’actifs Web publics, zone de dépôt proposée aux clients, etc… Bien que ces cas d’usages soient souvent des exceptions, c’est justement ce qui est compliqué à gérer, l’exception.&lt;/p&gt;
 
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
+&lt;h1 id=&quot;la-solution-simple&quot;&gt;La solution simple&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Pour se protéger contre l’exposition par erreur d’un bucket S3, rien de plus simple, il suffit de mettre en place le paramètre S3 Block Public Access au niveau du compte, et tous les buckets qui seront présents dans ce compte AWS seront de facto privés (c’est à dire exposés seulement à des utilisateurs ou rôles appartenant à l’organisation, au compte ou explicitement cités). Bien sûr, pour la mise en place de ce paramètre, l’idéal est de l’automatiser à la création de chaque nouveau compte AWS avec par exemple l’utilisation de la solution AWS Customizations.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;À noter que ce paramètre de Block Public Access peut être défini au niveau du compte mais également au niveau des buckets.&lt;/p&gt;
 
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
+&lt;h1 id=&quot;protéger-la-solution-simple&quot;&gt;Protéger la solution simple&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Le problème du Block Public Access, c’est que n’importe quel administrateur ou utilisateur avec la permission appropriée peut désactiver ce paramètre pour publier en urgence un bucket public (la fameuse urgence qui ne dure pas et est sans conséquence…). Pour se protéger contre une désactivation du paramètre, la meilleure façon d’agir et de définir une Service Control Policy (SCP) au niveau de AWS Organization qui va permettre d’empêcher tout changement de ce paramètre.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+      &quot;Version&quot;: &quot;2012-10-17&quot;,
+      &quot;Statement&quot;: [
+          {
+              &quot;Sid&quot;: &quot;DenyChangeS3PublicAccess&quot;,
+              &quot;Action&quot;: [
+                  &quot;s3:PutAccountPublicAccessBlock&quot;
+              ],
+              &quot;Resource&quot;: &quot;*&quot;,
+              &quot;Effect&quot;: &quot;Deny&quot;
+          }
+      ]
+  }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Cette SCP sera appliquée sur l’ensemble des OU de l’organisation à l’exception d’une OU dédiée pour les comptes exposants des ressources publiques.
+&lt;img src=&quot;images/bloc-public-access-organization.png&quot; alt=&quot;&quot; /&gt;
+Les comptes n’héritant pas de cette SCP pourront alors exposer des buckets publics tandis que les buckets privés dans ces même comptes pourront eux bénéficier du paramètre Block Public Access au niveau du bucket en soi.&lt;/p&gt;
 
-&lt;p&gt;Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.&lt;/p&gt;
+&lt;h1 id=&quot;mettre-en-place-un-shérif-en-ville&quot;&gt;Mettre en place un Shérif en ville&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;En théorie, avec cette SCP vous venez réduire considérablement le risque car seul les comptes devant exposer des buckets publics seront autorisés à le faire. Ceci dit, le risque que dans ces quelques comptes une erreur expose un bucket contenant des données confidentielles existe encore. Pour cela, il est intéressant de venir contrôler que les buckets exposés publics sont bien ceux qui ont été identifiés comme contenant des données qui sont elles même publiques. Pour cela, les tags vont être utiles. En effet, dans un modèle DevOps agile, la sécurité vient en partie être assumée par les développeurs qui créent leurs infrastructures. Par conséquent, si un développeur veut exposer un bucket public, on veut auparavant s’assurer qu’il est conscient de ce qu’il fait en lui demandant de définir un tag “public” sur le bucket. En lui demandant cette étape supplémentaire, on vient supprimer tout risque de mauvaise compréhension de la part du développeur exposant son bucket sans se rendre compte du risque.
+&lt;img src=&quot;images/bloc-public-access-automation.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/02-1.jpg&quot; alt=&quot;Flowers&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/VhcxuEGNXo4&quot;&gt;Rachel Strong&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Associé au tag, c’est une Lambda qui va vérifier suite à chaque changement sur un bucket S3 (via EventBridge) le statut d’exposition du bucket et le comparer au tag associé (ou non) à ce bucket. Dans notre exemple, nous utilisons un tag dont la clé est “protectyourcloud:classification-securite-donnees” et la valeur doit être à “public” pour permettre au bucket de rester public.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#
+# Description: Check that S3 bucket is not exposed without adequate tag.
+#
+# Trigger Type: Event Trigger
+# Scope of Changes: S3:PublicAccessBlockConfiguration
+# Accepted Parameters: None
+# Output : finding in Security Hub
 
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
+from datetime import datetime
+import boto3
+import sys
+import json
+from botocore.exceptions import ClientError
 
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
+def create_incident(s3name, account_id):
+    now = datetime.now()
+    nowstr = now.strftime(&quot;%Y-%m-%dT%X+00:00&quot;)
+    security = boto3.client('securityhub', region_name='ca-central-1')
+    response = security.batch_import_findings(
+        Findings=[
+            {
+                &quot;AwsAccountId&quot;: account_id,
+                &quot;Confidence&quot;: 100,
+                &quot;CreatedAt&quot;: nowstr,
+                &quot;Criticality&quot;: 10,
+                &quot;CompanyName&quot;: &quot;ProtectyourCloud&quot;,
+                &quot;ProductName&quot;: &quot;Security Fondation&quot;,
+                &quot;Description&quot;: &quot;A bucket has been automatically restricted&quot;,
+                &quot;FirstObservedAt&quot;: nowstr,
+                &quot;GeneratorId&quot;: &quot;protectyourCloud-compliance-s3-002&quot;,
+                &quot;Id&quot;: &quot;ca-central-1/&quot; + account_id + &quot;/s3public/&quot; + s3name,
+                &quot;LastObservedAt&quot;: nowstr,
+                &quot;Note&quot;: {
+                    &quot;Text&quot;: &quot;Finding generated by custom Lambda, due to an S3 which was public without the appropriate tag. The risk has been automatically remediated, no further action needed.&quot;,
+                    &quot;UpdatedAt&quot;: nowstr,
+                    &quot;UpdatedBy&quot;: &quot;ProtectyourCloud automation&quot;
+                },
+                &quot;ProductArn&quot;: &quot;arn:aws:securityhub:ca-central-1:&quot; + account_id + &quot;:product/&quot; + account_id + &quot;/default&quot;,
+                &quot;Remediation&quot;: {
+                    &quot;Recommendation&quot;: {
+                        &quot;Text&quot;: &quot;Tag the S3 bucket with the appriate tag protectyourcloud:classification-securite-donnees if public exposure needed&quot;,
+                        &quot;Url&quot;: &quot;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket&quot;
+                    }
+                },
+                &quot;Resources&quot;: [
+                    {
+                        &quot;Details&quot;: {
+                            &quot;Other&quot;: {
+                                &quot;string&quot;: s3name
+                            }
+                        },
+                        &quot;Id&quot;: &quot;arn:aws:s3:::&quot; + s3name,
+                        &quot;Partition&quot;: &quot;aws&quot;,
+                        &quot;Region&quot;: &quot;ca-central-1&quot;,
+                        &quot;Type&quot;: &quot;AwsS3Bucket&quot;
+                    }
+                ],
+                &quot;SchemaVersion&quot;: &quot;2018-10-08&quot;,
+                &quot;Severity&quot;: {
+                    &quot;Label&quot;: &quot;LOW&quot;
+                },
+                &quot;Title&quot;: &quot;S3 bucket exposed without tag&quot;,
+                &quot;Types&quot;: [
+                    &quot;Software and Configuration Checks/Industry and Regulatory Standards/CIS AWS Foundations Benchmark&quot;],
+                &quot;UpdatedAt&quot;: nowstr,
+                &quot;VerificationState&quot;: &quot;TRUE_POSITIVE&quot;,
+            }
+        ]
+    )
 
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
+def restrict_status(s3name):
+    client = boto3.client(&quot;ssm&quot;)
+    response = client.start_automation_execution(
+        DocumentName='AWS-DisableS3BucketPublicReadWrite',
+        DocumentVersion='$DEFAULT',
+        Parameters={
+            'S3BucketName': [
+                s3name,
+            ]
+        }
+    )
+    print(&quot;Restriction done on bucket &quot;+s3name)
 
-&lt;p&gt;&lt;img src=&quot;/images/02-2.jpg&quot; alt=&quot;Girls&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/LIaLQ2SIQuk&quot;&gt;Matheus Ferrero&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+def is_public_access_blocked(s3name):
+    s3 = boto3.client(&quot;s3&quot;)
+    publicblocks = s3.get_public_access_block(Bucket=s3name)
+    if publicblocks['PublicAccessBlockConfiguration']['BlockPublicAcls'] and publicblocs['PublicAccessBlockConfiguration']['BlockPublicPolicy']:
+        return True
+    else:
+        return False
 
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
+def is_bucket_policy_public(s3name):
+    s3 = boto3.client(&quot;s3&quot;)
+    try:
+        bucket_policy = s3.get_bucket_policy_status(Bucket=s3name)
+    except:
+        print(&quot;Bucket %s doesn't have Policy attached&quot; % (s3name))
+        return False
 
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
+    if bucket_policy['PolicyStatus']['IsPublic']:
+        return True
+    else:
+        return False
+
+def is_bucket_acl_public(s3name):
+    permissions_to_check = ['READ', 'WRITE', 'FULL_CONTROL']
+    public_acl_indicator = ['http://acs.amazonaws.com/groups/global/AllUsers','http://acs.amazonaws.com/groups/global/AuthenticatedUsers']
+
+    s3 = boto3.client(&quot;s3&quot;)
+    try:
+        bucket_acl = s3.get_bucket_acl(Bucket=s3name)
+    except:
+        print(&quot;Problem retrieving ACL for Bucket &quot; + s3name)
+        return False
+
+    for grant in bucket_acl['Grants']:
+        for (k, v) in grant.items():
+            if k == 'Permission' and any(permission in v for permission in permissions_to_check):
+                for (grantee_attrib_k, grantee_attrib_v) in grant['Grantee'].items():
+                    if 'URI' in grantee_attrib_k and grant['Grantee']['URI'] in public_acl_indicator:
+                        print(&quot;ACL public is in place on the bucket &quot;+s3name)
+                        return True
+    print(&quot;ACL public is NOT in place on the bucket &quot;+s3name)
+    return False
+
+def is_tagged_public(s3name):
+    s3 = boto3.client(&quot;s3&quot;)
+    try:
+        tags = s3.get_bucket_tagging(Bucket=s3name)
+        for tag in tags['TagSet']:
+            if tag['Key'] == &quot;protectyourcloud:classification-securite-donnees&quot; and tag['Value'].upper() == &quot;PUBLIC&quot;:
+                return True
+    except ClientError as e:
+        print('Bucket: %s, doesn t have tags associated' % (s3name))
+        return False
+    return False
+
+def lambda_handler(event, context):
+    #
+    # prepare variables for the Security Hub finding
+    #
+    client = boto3.client(&quot;sts&quot;)
+    account_id = client.get_caller_identity()[&quot;Account&quot;]
+    s3arn = str(event['resources'][0])
+    spl_word = &quot;:::&quot;
+    s3bucketname = s3arn.partition(spl_word)[2]
+
+    if is_public_access_blocked(s3bucketname):
+        print (&quot;Bucket %s is protected and so not public&quot; % (s3bucketname))
+        sys.exit(1)
+    else:
+        if is_bucket_policy_public(s3bucketname) or is_bucket_acl_public(s3bucketname):
+            if is_tagged_public(s3bucketname):
+                print('Bucket: %s, is public and tagged as is' % (s3bucketname))
+            else:
+                print('Bucket: %s, is public but without tags associated' % (s3bucketname))
+                restrict_status(s3bucketname)
+                create_incident(s3bucketname, account_id)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;La mise en place d’un contrôle préventif et d’un contrôle de réaction est la meilleure façon de compléter la détection effectuée généralement par le biais de votre CSPM ou de vos règles Config. Le plus important est de toujours inclure dans vos stratégies de protection les cas d’exception via des contrôles spécifiques, souvent liés aux tags. De plus, la mise en place stricte d’un tag associé aux buckets publics va permettre de suivre facilement l’inventaire des buckets exposés.&lt;/p&gt;
 </description>
-                <pubDate>Sun, 14 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/that-which-does-not-kill-us-makes-us-stronger</link>
-                <guid isPermaLink="true">http://localhost:4000/that-which-does-not-kill-us-makes-us-stronger</guid>
+                <pubDate>Sat, 27 Jan 2024 14:27:35 -0500</pubDate>
+                <link>http://localhost:4000/stop-exposing-s3-buckets</link>
+                <guid isPermaLink="true">http://localhost:4000/stop-exposing-s3-buckets</guid>
                 
-                <category>workflow</category>
+                <category>aws</category>
                 
-                <category>hobby</category>
+                <category>cloud</category>
                 
-                <category>study</category>
+                <category>data</category>
                 
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/07-1.jpg&quot; alt=&quot;Bikes&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/eZJiq4IVlwY&quot;&gt;Realaxer&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/07-2.jpg&quot; alt=&quot;Man and Bike&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/bq-1seg1cPI&quot;&gt;Clem Onojeghuo&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Fri, 12 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/do-what-you-can-with-what-you-have-where-you-are</link>
-                <guid isPermaLink="true">http://localhost:4000/do-what-you-can-with-what-you-have-where-you-are</guid>
-                
-                <category>lifestyle</category>
-                
-                <category>travel</category>
-                
-                <category>story</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/04-1.jpg&quot; alt=&quot;Man&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/eCkpDZi-vQ4&quot;&gt;Windows&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Thu, 11 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/if-you-cannot-do-great-things-do-small-things-in-a-great-way</link>
-                <guid isPermaLink="true">http://localhost:4000/if-you-cannot-do-great-things-do-small-things-in-a-great-way</guid>
-                
-                <category>lifestyle</category>
-                
-                <category>rest</category>
-                
-                <category>notes</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/09-1.jpg&quot; alt=&quot;Fire&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/Rdsc2L517iQ&quot;&gt;Roya ann Miller&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Wed, 10 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/strive-not-to-be-a-success-but-rather-to-be-of-value</link>
-                <guid isPermaLink="true">http://localhost:4000/strive-not-to-be-a-success-but-rather-to-be-of-value</guid>
-                
-                <category>travel</category>
-                
-                <category>rest</category>
-                
-                <category>story</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/06-1.jpg&quot; alt=&quot;Travel&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/MNtnaKks2n8&quot;&gt;Jesse Callahan&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Tue, 09 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/don-t-be-afraid-to-give-up-the-good-to-go-for-the-great</link>
-                <guid isPermaLink="true">http://localhost:4000/don-t-be-afraid-to-give-up-the-good-to-go-for-the-great</guid>
-                
-                <category>travel</category>
-                
-                <category>story</category>
-                
-                <category>rest</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/03-1.jpg&quot; alt=&quot;Woman&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/vAl_1cff2kY&quot;&gt;Chris Neumann&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/03-2.jpg&quot; alt=&quot;Dog&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/GZ1hc6Jvbrg&quot;&gt;Patrick Hendry&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Mon, 08 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/life-shrinks-or-expands-in-proportion-to-one-s-courage</link>
-                <guid isPermaLink="true">http://localhost:4000/life-shrinks-or-expands-in-proportion-to-one-s-courage</guid>
-                
-                <category>notes</category>
-                
-                <category>travel</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/08-1.jpg&quot; alt=&quot;Beach&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/O14abKtZ5iY&quot;&gt;Lachlan Dempsey&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Sun, 07 Nov 2021 07:01:35 -0500</pubDate>
-                <link>http://localhost:4000/what-you-do-speaks-so-loudly-that-i-cannot-hear-what-you-say</link>
-                <guid isPermaLink="true">http://localhost:4000/what-you-do-speaks-so-loudly-that-i-cannot-hear-what-you-say</guid>
-                
-                <category>travel</category>
-                
-                <category>hobby</category>
-                
-                <category>notes</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/05-1.jpg&quot; alt=&quot;Surfer&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/_CFv3bntQlQ&quot;&gt;Jeremy Bishop&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/05-2.jpg&quot; alt=&quot;Man&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/WBW1reqRl9M&quot;&gt;Oliver Sjöström&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Sat, 06 Nov 2021 08:01:35 -0400</pubDate>
-                <link>http://localhost:4000/you-must-be-the-change-you-wish-to-see-in-the-world</link>
-                <guid isPermaLink="true">http://localhost:4000/you-must-be-the-change-you-wish-to-see-in-the-world</guid>
-                
-                <category>lifestyle</category>
-                
-                <category>hobby</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/11-1.jpg&quot; alt=&quot;Sea&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/vn59e-3J2oo&quot;&gt;Tim Marshall&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/11-2.jpg&quot; alt=&quot;Surfer&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/pnwOWXp5YEE&quot;&gt;Carnaby Gilany&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Sun, 31 Oct 2021 08:01:35 -0400</pubDate>
-                <link>http://localhost:4000/the-way-i-see-it-every-life-is-a-pile-of-good-things</link>
-                <guid isPermaLink="true">http://localhost:4000/the-way-i-see-it-every-life-is-a-pile-of-good-things</guid>
-                
-                <category>lifestyle</category>
-                
-                <category>travel</category>
-                
-                <category>rest</category>
-                
-                
-            </item>
-        
-            <item>
-                <title></title>
-                <description>&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/12-1.jpg&quot; alt=&quot;Sea&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/7yqyQQXgOT8&quot;&gt;Lacie Slezak&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.&lt;/p&gt;
-
-&lt;p&gt;Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.&lt;/p&gt;
-
-&lt;p&gt;Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/12-2.jpg&quot; alt=&quot;Woman&quot; loading=&quot;lazy&quot; /&gt;
-&lt;em&gt;Photo by &lt;a href=&quot;https://unsplash.com/photos/eFWzKPXaC1I&quot;&gt;Drew Dau&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.&lt;/p&gt;
-
-&lt;p&gt;Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric “outside the box” thinking. Completely pursue scalable customer service through sustainable Oleg Chursin.&lt;/p&gt;
-</description>
-                <pubDate>Sat, 29 May 2021 11:05:55 -0400</pubDate>
-                <link>http://localhost:4000/everything-has-beauty-but-not-everyone-can-see</link>
-                <guid isPermaLink="true">http://localhost:4000/everything-has-beauty-but-not-everyone-can-see</guid>
-                
-                <category>travel</category>
-                
-                <category>lifestyle</category>
+                <category>security</category>
                 
                 
             </item>
