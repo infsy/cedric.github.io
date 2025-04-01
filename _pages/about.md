@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-description: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Geek by design, j'aime lew jeux vidéos, les livres, le cinéma et le Jazz ! (j'oubliais, j'aime les chats aussi :-D )
+description: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Geek by design, j'aime les jeux vidéos, les livres, le cinéma et le Jazz ! (j'oubliais, j'aime les chats aussi :-D )
 permalink: /about/
 image: '/images/headshot.jpg'
 image_caption: 'Photo personnelle'

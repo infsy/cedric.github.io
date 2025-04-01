@@ -1,7 +1,7 @@
 #-------------------------------
 # Site Settings
 title: ProtectYourIT
-logo: # You can add own logo. For example "/images/logo.png".
+logo: /images/logo.png
 description: Blog sur la sécurité Cloud et le GenAI par Cedric Thibault
 
 
@@ -9,7 +9,7 @@ description: Blog sur la sécurité Cloud et le GenAI par Cedric Thibault
 # Author Global Settings
 author:
   author__name: Cedric Thibault
-  author__bio: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Ce blogue traite principalement de la sécurité du Cloud et de la GenAI, mais aussi de mes loisirs et de quelques conseils en matière d'informatique et de gestion.
+  author__bio: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Ce blogue traite principalement de la sécurité du Cloud et de la GenAI.
   author__avatar: /images/cedric.jpg
 
 
@@ -25,8 +25,8 @@ menu__settings:
       submenu:
       - url: '/authors/'
         title: 'Authors'
-      - url: '/elements/'
-        title: 'Elements'
+#      - url: '/elements/'
+#        title: 'Elements'
     - title: 'Contact'
       url: '/contact/'
 
@@ -34,14 +34,14 @@ menu__settings:
 #-------------------------------
 # Hero Settings
 hero:
-  hero__title: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Ce blogue traite principalement de la sécurité du Cloud et de la GenAI, mais aussi de mes loisirs et de quelques conseils en matière d'informatique et de gestion.
+  hero__title: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Ce blogue traite principalement de la sécurité du Cloud et de la GenAI.
 
 
 #-------------------------------
 # Blog Settings
 blog:
   blog__title: Blog & Resources
-  blog__description: Some posts for your saturday evening...
+  blog__description: De la lecture pour vos samedi soir...
 
 
 #-------------------------------
