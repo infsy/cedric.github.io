@@ -56,7 +56,7 @@ tag:
 # Newsletter Settings
 mailchimp:
   enable: true
-  mailchimp__identifier: frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3 # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
+  mailchimp__identifier: https://cloud.us20.list-manage.com/subscribe?u=1fe21290477375cae5a7d4db6&id=480af96bad # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
   mailchimp__title: Recevoir directement mes articles
   mailchimp__description: Souscris à ma newsletter et je t'enverrai des emails avec mes posts.
   mailchimp__input__text: Your Email Address...
