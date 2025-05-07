@@ -1,7 +1,7 @@
 #-------------------------------
 # Site Settings
 title: ProtectYourIT
-logo: /images/logo.png
+#logo: /images/logo.png
 description: Blog sur la sécurité Cloud et le GenAI par Cedric Thibault
 
 
@@ -56,7 +56,7 @@ tag:
 # Newsletter Settings
 mailchimp:
   enable: true
-  mailchimp__identifier: frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3 # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
+  mailchimp__identifier: https://cloud.us20.list-manage.com/subscribe?u=1fe21290477375cae5a7d4db6&id=480af96bad # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
   mailchimp__title: Recevoir directement mes articles
   mailchimp__description: Souscris à ma newsletter et je t'enverrai des emails avec mes posts.
   mailchimp__input__text: Your Email Address...
@@ -84,7 +84,7 @@ footer__menu__settings:
 
 # Social Links
 social:
-- {icon: "ion-logo-twitter", color: "#55acee", name: Twitter, link: "https://twitter.com/protectyourit"}
+- {icon: "ion-logo-twitter", color: "#55acee", name: BlueSky, link: "https://bsky.app/profile/protectyourit.bsky.social"}
 - {icon: "ion-logo-linkedin", color: "#3b5999", name: Linkedin, link: "https://www.linkedin.com/in/cedricthibault"}
 # - {icon: "ion-logo-pinterest", color: "#bd081c", name: Pinterest, link: "https://pinterest.com"}
 # - {icon: "ion-logo-dribbble", color: "#ea4c89", name: Dribbble, link: "https://dribbble.com"}
