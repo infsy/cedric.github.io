@@ -21,11 +21,11 @@ permalink: /tags/
             {% for post in site.tags[this_word] limit:1 %}
               {% if post.image != null %}
               <div class="tag__image">
-                <img class="lazy" data-src="{{site.baseurl}}{{post.image}}" alt="{{this_word | capitalize}}">
+                <img class="lazy" data-src="{{ site.baseurl }}{{ post.image | escape }}" alt="{{ this_word | capitalize | escape }}">
               </div>
               {% endif %}
             {% endfor %}
-            <h2 class="tag__name">{{ this_word }}</h2>
+            <h2 class="tag__name">{{ this_word | escape }}</h2>
             <div class="tag__counter">{{ site.tags[this_word].size }} {% if site.tags[page.tag].size < 2 %}Post{% else %}Posts{% endif %}</div>
             </div>
           </div>

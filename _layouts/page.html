@@ -8,14 +8,14 @@ layout: default
     <div class="page__info">
       <h1 class="page__title">{{ page.title | escape }}</h1>
       {% if page.description %}
-        <p class="page__description">{{ page.description }}</p>
+        <p class="page__description">{{ page.description | escape }}</p>
       {% endif %}
     </div>
 
     {% if page.video_embed %}
     <div class="page-video">
       <div class="page-video__wrap">
-        <iframe src="{{ page.video_embed }}" loading="lazy" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe src="{{ page.video_embed | escape }}" loading="lazy" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
 
@@ -23,12 +23,12 @@ layout: default
 
     {%if page.image %}
     <div class="page-image">
-      <img class="lazy" data-src="{{site.baseurl}}{{page.image}}" alt="{{page.title}}">
+      <img class="lazy" data-src="{{ site.baseurl }}{{ page.image | escape }}" alt="{{ page.title | escape }}">
     </div>
     {% endif %}
 
     {% if page.image_caption %}
-      <div class="page-image-caption">{{ page.image_caption | markdownify | replace: '<p>' | replace: '</p>' }}</div>
+      <div class="page-image-caption">{{ page.image_caption | escape | markdownify | replace: '<p>' | replace: '</p>' }}</div>
     {% endif %}
 
     {% endif %}

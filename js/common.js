@@ -148,7 +148,86 @@ document.addEventListener("DOMContentLoaded", function() {
   // =====================
   var load_posts_button = document.querySelector('.load-more-posts');
 
-  load_posts_button&&load_posts_button.addEventListener("click",function(e){e.preventDefault();var o=document.querySelector(".pagination"),e=pagination_next_url.split("/page")[0]+"/page/"+pagination_next_page_number+"/";fetch(e).then(function(e){if(e.ok)return e.text()}).then(function(e){var n=document.createElement("div");n.innerHTML=e;for(var t=document.querySelector(".grid"),a=n.querySelectorAll(".grid__post"),i=0;i<a.length;i++)t.appendChild(a.item(i));new LazyLoad({elements_selector:".lazy"});pagination_next_page_number++,pagination_next_page_number>pagination_available_pages_number&&(o.style.display="none")})});
+  function removeUnsafeAttributes(element) {
+    const attrs = Array.from(element.attributes);
+
+    attrs.forEach((attr) => {
+      const name = attr.name.toLowerCase();
+      const value = attr.value.trim().toLowerCase();
+
+      if (name.startsWith("on") || name === "srcdoc") {
+        element.removeAttribute(attr.name);
+        return;
+      }
+
+      if (name === "href" || name === "src" || name === "data-src" || name === "xlink:href") {
+        if (value.startsWith("javascript:") || value.startsWith("data:text/html")) {
+          element.removeAttribute(attr.name);
+        }
+      }
+    });
+  }
+
+  function sanitizeNodeTree(rootNode) {
+    const blockedTags = ["script", "iframe", "object", "embed", "link", "style", "meta", "base", "form"];
+
+    removeUnsafeAttributes(rootNode);
+
+    blockedTags.forEach((tag) => {
+      const elements = rootNode.querySelectorAll(tag);
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].remove();
+      }
+    });
+
+    const elements = rootNode.querySelectorAll("*");
+    for (let i = 0; i < elements.length; i++) {
+      removeUnsafeAttributes(elements[i]);
+    }
+  }
+
+  if (load_posts_button) {
+    load_posts_button.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      var pagination = document.querySelector(".pagination");
+      var nextPageUrl = pagination_next_url.split("/page")[0] + "/page/" + pagination_next_page_number + "/";
+
+      fetch(nextPageUrl)
+        .then(function(response) {
+          if (response.ok) return response.text();
+          throw new Error("Unable to load next page");
+        })
+        .then(function(htmlString) {
+          var parser = new DOMParser();
+          var parsedDocument = parser.parseFromString(htmlString, "text/html");
+          var grid = document.querySelector(".grid");
+          var posts = parsedDocument.querySelectorAll(".grid__post");
+
+          if (!grid) {
+            return;
+          }
+
+          for (var i = 0; i < posts.length; i++) {
+            var safePost = posts[i].cloneNode(true);
+            sanitizeNodeTree(safePost);
+            grid.appendChild(safePost);
+          }
+
+          new LazyLoad({elements_selector: ".lazy"});
+          pagination_next_page_number++;
+
+          if (pagination_next_page_number > pagination_available_pages_number) {
+            pagination.style.display = "none";
+          }
+        })
+        .catch(function() {
+          if (pagination) {
+            pagination.style.display = "none";
+          }
+        });
+    });
+  }
 
 
   /* =======================

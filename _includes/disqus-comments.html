@@ -5,7 +5,7 @@
 
 <script>
   function load_disqus() {
-    var disqus_shortname = '{{ site.data.settings.disqus.disqus__identifier }}',
+    var disqus_shortname = '{{ site.data.settings.disqus.disqus__identifier | escape }}',
       is_disqus_empty = document.getElementById('disqus_empty'),
       disqus_target = document.getElementById('disqus_thread'),
       disqus_embed = document.createElement('script'),

@@ -6,22 +6,22 @@
         <div class="subscribe__inner">
           <div class="subscribe__content">
             {% if site.data.settings.mailchimp.mailchimp__title %}
-              <h3 class="subscribe__title">{{ site.data.settings.mailchimp.mailchimp__title }}</h3>
+              <h3 class="subscribe__title">{{ site.data.settings.mailchimp.mailchimp__title | escape }}</h3>
             {% endif %}
             {% if site.data.settings.mailchimp.mailchimp__description %}
-              <p class="subscribe__description">{{ site.data.settings.mailchimp.mailchimp__description }}</p>
+              <p class="subscribe__description">{{ site.data.settings.mailchimp.mailchimp__description | escape }}</p>
             {% endif %}
           </div>
           <form class="subscribe-form validate"
-            action="{% if site.data.settings.mailchimp.mailchimp__identifier %}//{{site.data.settings.mailchimp.mailchimp__identifier}}{% else %}#{% endif %}" method="POST"
+            action="{% if site.data.settings.mailchimp.mailchimp__identifier %}//{{ site.data.settings.mailchimp.mailchimp__identifier | escape }}{% else %}#{% endif %}" method="POST"
             id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank" novalidate>
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
             <input class="subscribe-email required email" id="mce-EMAIL" type="text" name="EMAIL"
-              placeholder="{% if site.data.settings.mailchimp.mailchimp__input__text %}{{ site.data.settings.mailchimp.mailchimp__input__text }}{% else %}Email address{% endif %}">
-            <button class="button button--primary subscribe-button" id="membedded-subscribe" type="submit" name="subscribe">{{ site.data.settings.mailchimp.mailchimp__button__text }}</button>
+              placeholder="{% if site.data.settings.mailchimp.mailchimp__input__text %}{{ site.data.settings.mailchimp.mailchimp__input__text | escape }}{% else %}Email address{% endif %}">
+            <button class="button button--primary subscribe-button" id="membedded-subscribe" type="submit" name="subscribe">{{ site.data.settings.mailchimp.mailchimp__button__text | escape }}</button>
           </form>
         </div>
-        <div class="subscribe__bg lazy" data-bg="{{site.data.settings.mailchimp.mailchimp__background__image}}"></div>
+        <div class="subscribe__bg lazy" data-bg="{{ site.data.settings.mailchimp.mailchimp__background__image | escape }}"></div>
       </div>
     </div>
   </div>

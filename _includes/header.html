@@ -7,9 +7,9 @@
         <div class="logo">
           <a class="logo__link" href="{{ site.baseurl }}/">
           {% if site.data.settings.logo %}
-            <img class="logo__image" src="{{ site.baseurl }}{{ site.data.settings.logo }}" alt="{{ site.data.settings.title }}">
+            <img class="logo__image" src="{{ site.baseurl }}{{ site.data.settings.logo | escape }}" alt="{{ site.data.settings.title | escape }}">
           {% else %}
-            {{ site.data.settings.title }}
+            {{ site.data.settings.title | escape }}
           {% endif %}
           </a>
         </div>
@@ -25,18 +25,18 @@
             {% for item in site.data.settings.menu__settings.menu__items %}
               {% if item.submenu %}
               <li class="nav__item dropdown">
-                <span class="nav__link dropdown-toggle">{{ item.title }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
+                <span class="nav__link dropdown-toggle">{{ item.title | escape }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
                 <div class="dropdown-menu">
                 {% for submenu-item in item.submenu %}
                 <div>
-                  <a href="{{ submenu-item.url }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{submenu-item.title}}</a>
+                  <a href="{{ submenu-item.url | escape }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{ submenu-item.title | escape }}</a>
                 </div>
                 {% endfor %}
                 </div>
               </li>
               {% else %}
               <li class="nav__item">
-                <a href="{{ item.url | relative_url }}" class="nav__link{% if page.url == item.url %} active-link{% endif %}">{{ item.title }}</a>
+                <a href="{{ item.url | relative_url }}" class="nav__link{% if page.url == item.url %} active-link{% endif %}">{{ item.title | escape }}</a>
               </li>
               {% endif %}
             {% endfor %}

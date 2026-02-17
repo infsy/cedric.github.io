@@ -5,10 +5,10 @@ layout: null
   {% for post in site.posts %}
     {
       "title"    : "{{ post.title | escape }}",
-      "category" : "{{ post.category }}",
-      "tags"     : "{{ post.tags | array_to_sentence_string }}",
-      "url"      : "{{ site.baseurl }}{{ post.url }}",
-      "image"    : "{{ post.image }}"
+      "category" : "{{ post.category | escape }}",
+      "tags"     : "{{ post.tags | array_to_sentence_string | escape }}",
+      "url"      : "{{ site.baseurl }}{{ post.url | escape }}",
+      "image"    : "{{ post.image | escape }}"
     } {% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
