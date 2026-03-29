@@ -1,0 +1,26 @@
+# i18n variables
+# Access them via {{ site.data.i18n[site.active_lang].key }}
+fr:
+  home: "Accueil"
+  about: "À propos"
+  pages: "Pages"
+  authors: "Auteurs"
+  contact: "Contact"
+  read_more: "Lire la suite"
+  search: "Recherche"
+  blog_title: "Blog & Ressources"
+  blog_desc: "De la lecture pour vos samedi soir..."
+  switch_lang: "English"
+  switch_lang_url: "/en"
+en:
+  home: "Home"
+  about: "About"
+  pages: "Pages"
+  authors: "Authors"
+  contact: "Contact"
+  read_more: "Read more"
+  search: "Search"
+  blog_title: "Blog & Resources"
+  blog_desc: "Readings for your Saturday nights..."
+  switch_lang: "Français"
+  switch_lang_url: "/"

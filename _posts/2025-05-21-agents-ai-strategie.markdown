@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /agents-ai-strategie
 layout: post
 title: Les bonnes stratégies pour implanter les Agents IA
 description: L'internet est bouillant de nouvelles relatives aux agents IA. Mais comment les implanter avec succès et pourquoi ?

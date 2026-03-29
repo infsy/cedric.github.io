@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /introduction-security-aws
 layout: post
 title: Les bases de la sécurité AWS - guide pour débutant
 description: La sécurité dans AWS est un sujet qui peut se révéler complexe, et il est parfois utile de commencer par rappeler les bases.

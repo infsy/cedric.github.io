@@ -1,69 +1,51 @@
 <!-- begin footer -->
 <footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
 
-  <div class="footer__inner">
+        <div class="footer__inner">
+          <div class="row align-items-center">
 
-    {% include subscribe.html %}
-
-    <div class="container">
-      <div class="row">
-
-        <div class="col col-6 col-d-12">
-          <div class="widget-footer widget-author">
-            <div class="widget-author__avatar">
-              <img class="lazy" data-src="{{ site.data.settings.author.author__avatar | escape }}" alt="{{ site.data.settings.author.author__name | escape }}">
+            <div class="col col-4 col-d-12">
+              <a class="logo__link" href="{{ site.baseurl }}/">
+                {% if site.data.settings.logo %}
+                  <img class="logo__image" src="{{ site.baseurl }}{{ site.data.settings.logo | escape }}" alt="{{ site.data.settings.title | escape }}">
+                {% else %}
+                  {{ site.data.settings.title | escape }}
+                {% endif %}
+              </a>
             </div>
-            <h3 class="widget-author__title">{{ site.data.settings.author.author__name | escape }}</h3>
-            {% if site.data.settings.author.author__bio %}
-            <p class="widget-author__bio">{{ site.data.settings.author.author__bio | escape }}</p>
-            {% endif %}
-          </div>
-        </div>
 
-        <div class="col col-2 col-m-12">
-          <div class="widget-footer widget-social">
-            <h3 class="widget-footer__title">Follow</h3>
-            {% if site.data.settings.social %}
-            <div class="social">
-              <ul class="social__list list-reset">
-                {% for social in site.data.settings.social %}
-                <li class="social__item">
-                  <i class="ion {{ social.icon | escape }}" style="background-color: {{ social.color | escape }};"></i>
-                  <a class="social__link" href="{{ social.link | escape }}" target="_blank" rel="noopener" aria-label="{{ social.label | escape }} link">{{ social.name | capitalize | escape }}</a>
-                </li>
+            <div class="col col-4 col-d-12">
+              {% assign active_lang = site.active_lang | default: site.default_lang %}
+              {% assign footer_menu = site.data.settings.footer__menu__settings[active_lang].menu__items | default: site.data.settings.footer__menu__settings.menu__items %}
+              <div class="footer-nav">
+                <ul class="footer-nav__list list-reset">
+                {% for item in footer_menu %}
+                  <li class="footer-nav__item"><a href="{{ site.baseurl }}{{ item.url }}" class="footer-nav__link">{{ site.data.i18n[active_lang][item.title] | default: item.title | escape }}</a></li>
                 {% endfor %}
-              </ul>
+                </ul>
+              </div>
             </div>
-            {% endif %}
-          </div>
-        </div>
 
-        <div class="col col-2 col-m-12">
-          <div class="widget-footer widget-nav">
-            <h3 class="widget-footer__title">Menu</h3>
-            <ul class="widget-nav__list list-reset">
-              {% for item in site.data.settings.footer__menu__settings.menu__items %}
-              <li class="widget-nav__item">
-                <a href="{{ item.url | relative_url }}" class="widget-nav__link">{{ item.title | escape }}</a>
-              </li>
-              {% endfor %}
-            </ul>
+            <div class="col col-4 col-d-12">
+              <div class="social">
+                <ul class="social__list list-reset">
+                  {% for social in site.data.settings.social %}
+                  <li class="social__item">
+                    <a class="social__link" href="{{ social.link }}" target="_blank" rel="noopener" aria-label="{{ social.name }} link"><i class="ion {{ social.icon }}"></i></a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
           </div>
         </div>
 
       </div>
     </div>
   </div>
-
-  <div class="footer__info">
-    <div class="container">
-      <div class="row">
-        <div class="col col-12">
-          <div class="copyright">{{site.time | date: '%Y'}} &copy; <a href="/">{{ site.data.settings.title | escape }}</a>. Crafted & Designed by <a href="https://jekyllthemes.io/developers/artem-sheludko">Artem Sheludko</a>.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </footer>
 <!-- end footer -->

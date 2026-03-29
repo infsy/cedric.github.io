@@ -3,6 +3,11 @@
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://cedricthibault.cloud" # the base hostname & protocol for your site, e.g. http://example.com
 
+#-------------------------------
+# Language Settings (Polyglot)
+languages: ["fr", "en"]
+default_lang: "fr"
+exclude_from_localization: ["javascript/", "images/", "css/", "assets/", "_sass/", "js/", "CNAME", "LICENSE", "README.md", "Gemfile", "Gemfile.lock"]
 
 #-------------------------------
 # Build Settings
@@ -11,6 +16,7 @@ permalink: /:title
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-polyglot
 
 paginate: 6
 paginate_path: "/page/:num"

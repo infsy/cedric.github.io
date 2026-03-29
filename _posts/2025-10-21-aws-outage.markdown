@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /aws-outage
 layout: post
 title: Non le crash AWS ne renforce pas forcément le multi-cloud
 description: Cet article réfute les réactions simplistes à la panne d'AWS (comme le multi-cloud ou le retour au on-prem) et recentre le débat sur la nécessité d'architectures résilientes et hautement découplées.

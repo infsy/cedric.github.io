@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /aws-chiffrement
 layout: post
 title: Chiffrement des données dans AWS
 description: Les options pour chiffrer les données sont nombreuses dans AWS. Il est important de comprendre les avantages de chacune.

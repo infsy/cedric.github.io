@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /protocole-mcp-genai
 layout: post
 title: MCP - L'explosion de l'Agentic AI
 description: Le protocole MCP a été récemment publié par Anthropic et adopté par de nombreuses compagnies. Découvrez dans cet article le potentiel de ce protocole.

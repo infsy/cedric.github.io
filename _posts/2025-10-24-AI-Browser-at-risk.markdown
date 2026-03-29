@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /AI-Browser-at-risk
 layout: post
 title: Les browser AI, une innovation à risque
 description: Avant de célébrer Atlas et les navigateurs IA, rappelons que ces navigateurs peuvent être détournés par des instructions cachées dans les pages web pour agir malicieusement avec vos privilèges authentifiés.

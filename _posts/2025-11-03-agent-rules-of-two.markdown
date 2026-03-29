@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /agent-rules-of-two
 layout: post
 title: Les bases d'une architecture sécurisée agentique
 description: Les agents IA dotés de privilèges élevés présentent des risques de sécurité critiques qui nécessitent l'implémentation de mesures strictes, telles que le principe du moindre privilège et la supervision humaine, pour sécuriser l'automatisation.

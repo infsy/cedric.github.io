@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /prepare-for-ai-demu
 layout: post
 title: Comment sécuriser la nouvelle génération de DEMU
 description: Pour contrer les risques du "Shadow GenAI", une stratégie de défense en profondeur alliant collaboration métier, contrôle d'identité des agents et protection périmétrique des données est nécessaire

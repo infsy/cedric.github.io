@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /Datadog-report-analysis
 layout: post
 title: Analyse du rapport State of Cloud Security 2024 de Datadog
 description: Datadog est un acteur bien connu de la sécurité infonuagique et son rapport sur l'état de la sécurité est toujours riche d'enseignements.

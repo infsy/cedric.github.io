@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /security-is-everybody-job
 layout: post
 title: La responsabilité de la sécurité dans le Cloud
 description: Quand la sécurité est l'affaire de tous, elle devient la responsabilité de personne. Pourquoi la décentralisation totale de la sécurité dans les TI est une mauvaise idée.

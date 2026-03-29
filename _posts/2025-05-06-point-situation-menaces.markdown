@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /point-situation-menaces
 layout: post
 title: Point de situation 2025 sur les menaces et stratégies Cloud
 description: Alors que l'année est bien avancée, faisons un point de situation sur les menaces propres au Cloud et les stratégies recommandées.

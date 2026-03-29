@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /stop-exposing-public-s3-buckets
 layout: post
 title: En finir avec les buckets S3 publics (at scale)
 description: L'exposition des données stockées dans les buckets S3 reste un sujet d'actualité malgré les mesures d'AWS. Voyons comment s'en occuper pour de bon.
@@ -9,6 +11,7 @@ image_caption: 'Photo by unknown'
 tags: [aws, cloud, data, security]
 featured:
 ---
+permalink: /stop-exposing-public-s3-buckets
 # TL;DR
 *** 
 Malgré de nombreuses mesures de protection ajoutées par AWS pour sécuriser les buckets S3, de nombreux incidents de brèches de données continuent à se produire par erreur de configuration du client. Cet article vise à vous détailler la mise en place de mécanismes de prévention qui permettent de se protéger contre une exposition accidentelle de bucket dans une organisation AWS.

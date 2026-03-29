@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /salesforce-attack
 layout: post
 title: La sécurité SAAS commence chez vous
 description: Les cyberattaques SaaS explosent par manque de configuration client adéquate ; les frameworks comme CSA SSCF et outils SSPM deviennent incontournables.

@@ -22,24 +22,36 @@
           <div class="main-nav__box">
             <ul class="nav__list list-reset">
 
-            {% for item in site.data.settings.menu__settings.menu__items %}
+            {% assign active_lang = site.active_lang | default: site.default_lang %}
+            {% assign menu = site.data.settings.menu__settings[active_lang].menu__items | default: site.data.settings.menu__settings.menu__items %}
+
+            {% for item in menu %}
               {% if item.submenu %}
               <li class="nav__item dropdown">
-                <span class="nav__link dropdown-toggle">{{ item.title | escape }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
+                <span class="nav__link dropdown-toggle">{{ site.data.i18n[active_lang][item.title] | default: item.title | escape }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
                 <div class="dropdown-menu">
                 {% for submenu-item in item.submenu %}
                 <div>
-                  <a href="{{ submenu-item.url | escape }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{ submenu-item.title | escape }}</a>
+                  <a href="{{ site.baseurl }}{{ submenu-item.url }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{ site.data.i18n[active_lang][submenu-item.title] | default: submenu-item.title | escape }}</a>
                 </div>
                 {% endfor %}
                 </div>
               </li>
               {% else %}
               <li class="nav__item">
-                <a href="{{ item.url | relative_url }}" class="nav__link{% if page.url == item.url %} active-link{% endif %}">{{ item.title | escape }}</a>
+                <a href="{{ site.baseurl }}{{ item.url }}" class="nav__link{% if page.url == item.url %} active-link{% endif %}">{{ site.data.i18n[active_lang][item.title] | default: item.title | escape }}</a>
               </li>
               {% endif %}
             {% endfor %}
+            
+            <!-- Language Switcher -->
+            <li class="nav__item lang-switcher">
+              {% if site.active_lang == 'fr' %}
+                <a href="{{ site.baseurl }}/en{{ page.url }}" class="nav__link">🇬🇧 EN</a>
+              {% else %}
+                <a href="{{ site.baseurl }}{{ page.url | replace_first: '/en', '' }}" class="nav__link">🇫🇷 FR</a>
+              {% endif %}
+            </li>
 
             </ul>
           </div>

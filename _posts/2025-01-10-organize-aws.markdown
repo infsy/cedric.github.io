@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /organize-aws
 layout: post
 title: L'organisation de votre zone d'accueil
 description: La mise en place d'une zone d'acceuil (Landing Zone) est un prérequis pour évolution sécuritaire de votre consommation infonuagique.

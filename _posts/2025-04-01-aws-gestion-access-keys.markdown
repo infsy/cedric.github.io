@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /aws-gestion-access-keys
 layout: post
 title: Sécuriser vos clés d'accès AWS
 description: Les clés d'accès AWS (Access Keys) sont très pratiques pour se connecter en ligne de commande. Elles sont aussi dangereuses si mal utilisées.

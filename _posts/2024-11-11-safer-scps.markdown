@@ -1,4 +1,6 @@
 ---
+lang: fr
+permalink: /safer-scps
 layout: post
 title: Suivre le déploiement de vos SCPs
 description: Le déploiement de SCPs dans AWS peut ête source de blocages non désirés. Suivez les effets de vos SCPs avec ces métriques.
