@@ -7,3 +7,4 @@ _site/.DS_Store
 .idea/aws.xml
 .idea/misc.xml
 images/.DS_Store
+_site/
