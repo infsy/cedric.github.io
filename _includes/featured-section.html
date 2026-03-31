@@ -1,4 +1,6 @@
-{% for post in site.posts %}
+{% assign active_lang = site.active_lang | default: site.default_lang %}
+{% assign lang_posts = site.posts | where: "lang", active_lang %}
+{% for post in lang_posts %}
   {% if post.featured == true %}
     {% assign is-featured = true %}
   {% endif %}
@@ -32,7 +34,7 @@
     <div class="container">
       <div class="row">
         <div class="posts-slider">
-        {% for post in site.posts %}
+        {% for post in lang_posts %}
           {% if post.featured == true %}
             <div class="article col col-4 col-d-6 col-t-12">
               <div class="article__inner">

@@ -1,8 +1,10 @@
 {% assign maxRelated = 4 %}
 {% assign minCommonTags = 1 %}
 {% assign maxRelatedCounter = 0 %}
+{% assign active_lang = site.active_lang | default: site.default_lang %}
+{% assign lang_posts = site.posts | where: "lang", active_lang %}
 
-{% for post in site.posts %}
+{% for post in lang_posts %}
   {% assign sameTagCount = 0 %}
   {% assign commonTags = '' %}
   {% for tag in post.tags %}
@@ -38,7 +40,7 @@
           </div>
           <div class="row">
 
-          {% for post in site.posts %}
+          {% for post in lang_posts %}
             {% assign sameTagCount = 0 %}
             {% assign commonTags = '' %}
 

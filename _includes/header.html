@@ -47,9 +47,9 @@
             <!-- Language Switcher -->
             <li class="nav__item lang-switcher">
               {% if site.active_lang == 'fr' %}
-                <a href="{{ site.baseurl }}/en{{ page.url }}" class="nav__link">🇬🇧 EN</a>
+                <a {% static_href %}href="/en/"{% endstatic_href %} class="nav__link">🇬🇧 EN</a>
               {% else %}
-                <a href="{{ site.baseurl }}{{ page.url | replace_first: '/en', '' }}" class="nav__link">🇫🇷 FR</a>
+                <a {% static_href %}href="/"{% endstatic_href %} class="nav__link">🇫🇷 FR</a>
               {% endif %}
             </li>
 

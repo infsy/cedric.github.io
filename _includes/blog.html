@@ -1,5 +1,6 @@
 <div class="container">
   {% assign active_lang = site.active_lang | default: site.default_lang %}
+  {% assign lang_posts = site.posts | where: "lang", active_lang %}
   <div class="section__info">
     <div class="section__head">
       <h2 class="section__title">{{ site.data.i18n[active_lang].blog_title | default: site.data.settings.blog.blog__title | escape }}</h2>
@@ -10,8 +11,12 @@
   </div>
 
   <div class="row grid">
-    {% if site.posts.size > 0 %}
-      {% for post in paginator.posts %}
+    {% if lang_posts.size > 0 %}
+      {% assign offset = 0 %}
+      {% if paginator.page %}
+        {% assign offset = paginator.page | minus: 1 | times: site.paginate %}
+      {% endif %}
+      {% for post in lang_posts limit: site.paginate offset: offset %}
         {% include article.html %}
       {% endfor %}
     {% endif %}
