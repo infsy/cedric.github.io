@@ -9,6 +9,13 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url | escape }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.data.settings.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
 
+  <!-- hreflang SEO pour le multilingue -->
+  {% for lang in site.languages %}
+    {% capture lang_href %}{{ site.url }}{% if lang != site.default_lang %}/{{ lang }}{% endif %}{{ page.url | replace: 'index.html', '' }}{% endcapture %}
+    <link rel="alternate" hreflang="{{ lang }}" {% static_href %}href="{{ lang_href }}"{% endstatic_href %} />
+  {% endfor %}
+  <link rel="alternate" hreflang="x-default" {% static_href %}href="{{ site.url }}{{ page.url | replace: 'index.html', '' }}"{% endstatic_href %} />
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{% if page.url == "/" %}{{ site.data.settings.title | xml_escape }}{% else %}{{ page.title | xml_escape }} – {{ site.data.settings.title | xml_escape }}{% endif %}">

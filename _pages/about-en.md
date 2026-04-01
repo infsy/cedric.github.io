@@ -2,26 +2,26 @@
 lang: en
 layout: page
 title: About
-description: Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Geek by design, j'aime les jeux vidéos, les livres, le cinéma et le Jazz ! (j'oubliais, j'aime les chats aussi :-D )
+description: Hello everyone! I am Cédric Thibault, a cybersecurity and cloud security specialist based in Quebec City, Canada. Geek by design, I love video games, books, movies and Jazz! (I almost forgot, I love cats too :-D )
 permalink: /about/
 image: '/images/headshot.jpg'
 image_caption: 'Photo personnelle'
 ---
-Cédric Thibault est associé en cybersécurité et en sécurité infonuagique chez KPMG Canada, apportant plus de trois décennies d'expertise inestimable en TI. Tout au long de sa brillante carrière, il a affiné son acuité dans des domaines critiques tels que les systèmes d'information, la gouvernance technologique, la sécurité de l'information, la gestion des vulnérabilités, la gestion des risques, la gestion des incidents et la sécurité de l'informatique en nuage.
-Cédric est largement reconnu pour son leadership exemplaire, son enthousiasme inébranlable et ses connaissances multiples. Les clients le tiennent en haute estime pour son talent exceptionnel à traduire des concepts complexes de cybersécurité en un langage clair et orienté vers les affaires. Cette compétence exceptionnelle transparaît non seulement dans ses nombreuses interventions lors de conférences, mais aussi dans ses interactions avec des cadres et des dirigeants de haut niveau.
+Cédric Thibault is a Partner in Cybersecurity and Cloud Security at KPMG Canada, bringing more than three decades of invaluable IT expertise. Throughout his distinguished career, he has honed his acumen in critical areas such as information systems, technology governance, information security, vulnerability management, risk management, incident management, and cloud computing security.
+Cédric is widely recognized for his exemplary leadership, unwavering enthusiasm, and broad knowledge base. Clients hold him in high regard for his exceptional talent in translating complex cybersecurity concepts into clear, business-oriented language. This outstanding skill shines through not only in his numerous conference speaking engagements, but also in his interactions with senior executives and high-level leaders.
 
-# Expérience professionnelle
-- Gestion de la migration vers l’infonuagique
-- Mise en œuvre de la stratégie de sécurité de l’infonuagique
-- Définition et mise en œuvre d'un service SOC pour un MSSP et une institution financière
-- Gouvernance de la sécurité de l'information pour les grandes institutions publiques et privées
-- Définition et mise en œuvre d'initiatives d'automatisation et de développement
-- Gestion de programmes et d'équipes informatiques.
+# Professional Experience
+- Cloud migration management
+- Cloud security strategy implementation
+- Definition and implementation of a SOC service for an MSSP and a financial institution
+- Information security governance for large public and private institutions
+- Definition and implementation of automation and development initiatives
+- IT program and team management
 
-# Compétences clés ou techniques
-- Gouvernance et architecture de l'informatique en nuage
-- Sécurité de l'informatique en nuage
-- Détection des menaces et gestion des incidents
+# Key and Technical Skills
+- Cloud governance and architecture
+- Cloud computing security
+- Threat detection and incident management
 - DevSecOps
 - GenAI
 
