@@ -12,6 +12,7 @@ fr:
   blog_desc: "De la lecture pour vos samedi soir..."
   switch_lang: "English"
   switch_lang_url: "/en"
+  hero_title: "Bonjour à tous ! Je suis Cédric Thibault, un spécialiste de la cybersécurité et de la sécurité du cloud, basé à Québec, au Canada. Ce blogue traite principalement de la sécurité du Cloud et de la GenAI."
 en:
   home: "Home"
   about: "About"
@@ -24,3 +25,4 @@ en:
   blog_desc: "Readings for your Saturday nights..."
   switch_lang: "Français"
   switch_lang_url: "/"
+  hero_title: "Hello everyone! I'm Cédric Thibault, a cybersecurity and cloud security specialist based in Quebec City, Canada. This blog focuses primarily on Cloud Security and GenAI."

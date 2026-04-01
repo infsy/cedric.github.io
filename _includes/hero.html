@@ -4,7 +4,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="hero__inner">
-          <h1 class="hero__title">{{ site.data.settings.hero.hero__title | escape }}</h1>
+          {% assign active_lang = site.active_lang | default: site.default_lang %}
+          <h1 class="hero__title">{{ site.data.i18n[active_lang].hero_title | default: site.data.settings.hero.hero__title | escape }}</h1>
         </div>
       </div>
     </div>
