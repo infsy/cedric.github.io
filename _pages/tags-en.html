@@ -53,8 +53,27 @@ permalink: /tags/
 
 <script>
   var tag_name = window.location.search.replace("?tag=", "#");
-  if (tag_name) {
-    var el = document.querySelector(tag_name);
-    el.classList.remove("is-hidden");
+  if (tag_name && tag_name !== "#" && tag_name !== "#all") {
+    try {
+      var el = document.querySelector(tag_name);
+      if (el) {
+        el.classList.remove("is-hidden");
+      } else {
+        var allTags = document.querySelectorAll(".tags__inner");
+        allTags.forEach(function(tagEl) {
+          tagEl.classList.remove("is-hidden");
+        });
+      }
+    } catch (e) {
+      var allTags = document.querySelectorAll(".tags__inner");
+      allTags.forEach(function(tagEl) {
+        tagEl.classList.remove("is-hidden");
+      });
+    }
+  } else {
+    var allTags = document.querySelectorAll(".tags__inner");
+    allTags.forEach(function(tagEl) {
+      tagEl.classList.remove("is-hidden");
+    });
   }
 </script>
