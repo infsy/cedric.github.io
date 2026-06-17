@@ -7,7 +7,7 @@ description: "Les agents IA exposés ne sont plus seulement des chatbots : ce so
 author: cedric
 date: 2026-06-17 09:27:35 +0300
 tags: [agentic, ia, threat, reconnaissance, attack-surface, mcp, owasp]
-image: '/images/attack-surface.jpeg'
+image: '/images/covers/attack-surface.jpeg'
 featured:
 ---
 
