@@ -2,8 +2,8 @@
 lang: en
 layout: post
 permalink: /attack-surface
-title: Agentic Recon: When AI Agents Become a Discoverable Attack Surface
-description: Exposed AI agents are no longer just chatbots: they are connected, tool-enabled applications that can sometimes be discovered from the Internet. A new offensive reconnaissance discipline is emerging to identify, map, and exploit their capabilities.
+title: "Agentic Recon: When AI Agents Become a Discoverable Attack Surface"
+description: "Exposed AI agents are no longer just chatbots: they are connected, tool-enabled applications that can sometimes be discovered from the Internet. A new offensive reconnaissance discipline is emerging to identify, map, and exploit their capabilities."
 author: cedric
 date: 2026-06-17 09:27:35 +0300
 tags: [agentic, ai, threat, reconnaissance, attack-surface, mcp, owasp]

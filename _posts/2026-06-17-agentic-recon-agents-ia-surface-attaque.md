@@ -2,8 +2,8 @@
 lang: fr
 layout: post
 permalink: /attack-surface
-title: Agentic recon : quand les agents IA deviennent une surface d’attaque découvrable
-description: Les agents IA exposés ne sont plus seulement des chatbots : ce sont des applications connectées, outillées et parfois découvrables depuis Internet. Une nouvelle discipline de reconnaissance offensive émerge pour identifier, cartographier et exploiter leurs capacités.
+title: "Agentic recon : quand les agents IA deviennent une surface d’attaque découvrable"
+description: "Les agents IA exposés ne sont plus seulement des chatbots : ce sont des applications connectées, outillées et parfois découvrables depuis Internet. Une nouvelle discipline de reconnaissance offensive émerge pour identifier, cartographier et exploiter leurs capacités."
 author: cedric
 date: 2026-06-17 09:27:35 +0300
 tags: [agentic, ia, threat, reconnaissance, attack-surface, mcp, owasp]
