@@ -98,6 +98,7 @@ social:
 # Contact Settings
 contact:
   email: blog@cedricthibault.cloud # Add your email for contant form
+  formspree_form_id: xojgpqwv
 
 # NOTE
 # Dann theme comes with a contact form built-in. You can use this form with Formspree (https://formspree.io/) service and get up to 50 submissions for free. Also, you can easily switch to another service if you want.
