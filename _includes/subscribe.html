@@ -12,8 +12,20 @@
               <p class="subscribe__description">{{ site.data.settings.mailchimp.mailchimp__description | escape }}</p>
             {% endif %}
           </div>
+          {% assign mc_url = site.data.settings.mailchimp.mailchimp__identifier %}
+          {% if mc_url and mc_url != "" %}
+            {% if mc_url contains '://' %}
+              {% assign mc_action = mc_url %}
+            {% elsif mc_url contains '//' %}
+              {% assign mc_action = mc_url %}
+            {% else %}
+              {% capture mc_action %}//{{ mc_url }}{% endcapture %}
+            {% endif %}
+          {% else %}
+            {% assign mc_action = "#" %}
+          {% endif %}
           <form class="subscribe-form validate"
-            action="{% if site.data.settings.mailchimp.mailchimp__identifier %}//{{ site.data.settings.mailchimp.mailchimp__identifier | escape }}{% else %}#{% endif %}" method="POST"
+            action="{{ mc_action | escape }}" method="POST"
             id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank" novalidate>
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
             <input class="subscribe-email required email" id="mce-EMAIL" type="text" name="EMAIL"
@@ -27,3 +39,4 @@
   </div>
 </div>
 {% endif %}
+
