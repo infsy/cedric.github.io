@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Post-Mythos cyber execution model</title>
+  <desc id="desc">Four distinct panels show the closed operational loop, automation mechanics, federated architecture and outcomes to measure.</desc>
+  <defs>
+    <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2563EB"/></marker>
+    <marker id="arrowViolet" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7C3AED"/></marker>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.white{fill:#fff}.panel{fill:#fff;stroke-width:2}.h{font-weight:700;font-size:26px}.sub{font-size:18px}.label{font-size:20px;font-weight:650}.small{font-size:17px}.tiny{font-size:15px}.metric{font-size:19px;font-weight:650}
+    </style>
+  </defs>
+  <rect width="1600" height="1120" fill="#F8FAFC"/>
+  <text class="t" x="60" y="54" font-size="35" font-weight="750">Executing trusted controls at machine speed</text>
+  <text class="t muted" x="60" y="88" font-size="20">Four autonomous planes connected by common policy, evidence and accountability</text>
+
+  <!-- 1. Operational loop -->
+  <rect class="panel" x="60" y="125" width="710" height="430" rx="10" stroke="#2563EB"/>
+  <rect x="60" y="125" width="710" height="66" rx="9" fill="#EFF6FF"/>
+  <path d="M60 181 H770" stroke="#BFDBFE"/>
+  <circle cx="95" cy="158" r="18" fill="#2563EB"/><text class="t white" x="95" y="165" font-size="20" font-weight="700" text-anchor="middle">1</text>
+  <text class="t h" x="126" y="166">Closed operational loop</text>
+  <text class="t muted sub" x="88" y="220">Each stage produces verifiable input for the next.</text>
+  <g>
+    <rect x="92" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="180" y="286" text-anchor="middle">Detect</text>
+    <rect x="297" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="385" y="286" text-anchor="middle">Contextualize</text>
+    <rect x="502" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="590" y="286" text-anchor="middle">Decide</text>
+    <rect x="502" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="590" y="373" text-anchor="middle">Act</text>
+    <rect x="297" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="385" y="373" text-anchor="middle">Verify</text>
+    <rect x="92" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="180" y="373" text-anchor="middle">Learn</text>
+    <path d="M268 279 H290 M473 279 H495 M590 308 V330 M502 366 H480 M297 366 H275 M180 337 V316 M180 250 V237 H590 V243" fill="none" stroke="#2563EB" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  </g>
+  <rect x="88" y="430" width="654" height="94" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text class="t small" x="108" y="457" font-weight="700">ToolShell narrative — separate from the loop</text>
+  <text class="t tiny muted" x="108" y="483">Advisory and exposure → on-prem SharePoint context → patch, keys, hunt →</text>
+  <text class="t tiny muted" x="108" y="506">independent verification of safe state. A patch is not proof.</text>
+
+  <!-- 2. Mechanics -->
+  <rect class="panel" x="830" y="125" width="710" height="430" rx="10" stroke="#7C3AED"/>
+  <rect x="830" y="125" width="710" height="66" rx="9" fill="#F5F3FF"/>
+  <path d="M830 181 H1540" stroke="#DDD6FE"/>
+  <circle cx="865" cy="158" r="18" fill="#7C3AED"/><text class="t white" x="865" y="165" font-size="20" font-weight="700" text-anchor="middle">2</text>
+  <text class="t h" x="896" y="166">Automation mechanics</text>
+  <text class="t muted sub" x="858" y="220">Use the least complex level that is sufficient.</text>
+  <g>
+    <rect x="858" y="250" width="202" height="142" rx="9" fill="#FAF5FF" stroke="#C4B5FD"/>
+    <text class="t label" x="959" y="284" text-anchor="middle">Deterministic</text>
+    <text class="t tiny muted" x="959" y="316" text-anchor="middle">Collect</text><text class="t tiny muted" x="959" y="340" text-anchor="middle">Normalize</text><text class="t tiny muted" x="959" y="364" text-anchor="middle">Run repeatable steps</text>
+    <rect x="1084" y="250" width="202" height="142" rx="9" fill="#F5F3FF" stroke="#A78BFA"/>
+    <text class="t label" x="1185" y="284" text-anchor="middle">AI assistance</text>
+    <text class="t tiny muted" x="1185" y="316" text-anchor="middle">Correlate</text><text class="t tiny muted" x="1185" y="340" text-anchor="middle">Explain</text><text class="t tiny muted" x="1185" y="364" text-anchor="middle">Declare uncertainty</text>
+    <rect x="1310" y="250" width="202" height="142" rx="9" fill="#EDE9FE" stroke="#8B5CF6"/>
+    <text class="t label" x="1411" y="284" text-anchor="middle">Bounded agents</text>
+    <text class="t tiny muted" x="1411" y="316" text-anchor="middle">Orchestrate</text><text class="t tiny muted" x="1411" y="340" text-anchor="middle">Act within scope</text><text class="t tiny muted" x="1411" y="364" text-anchor="middle">Escalate exceptions</text>
+    <path d="M1060 321 H1077 M1286 321 H1303" stroke="#7C3AED" stroke-width="3" marker-end="url(#arrowViolet)"/>
+  </g>
+  <rect x="858" y="422" width="654" height="102" rx="8" fill="#FCFAFF" stroke="#DDD6FE"/>
+  <text class="t small" x="878" y="451" font-weight="700">Least-agency boundary</text>
+  <rect x="878" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="968" y="492" text-anchor="middle">Impact</text>
+  <rect x="1095" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="1185" y="492" text-anchor="middle">Reversibility</text>
+  <rect x="1312" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="1402" y="492" text-anchor="middle">Confidence</text>
+
+  <!-- 3. Federated architecture -->
+  <rect class="panel" x="60" y="600" width="710" height="430" rx="10" stroke="#0891B2"/>
+  <rect x="60" y="600" width="710" height="66" rx="9" fill="#ECFEFF"/>
+  <path d="M60 656 H770" stroke="#A5F3FC"/>
+  <circle cx="95" cy="633" r="18" fill="#0891B2"/><text class="t white" x="95" y="640" font-size="20" font-weight="700" text-anchor="middle">3</text>
+  <text class="t h" x="126" y="641">Federated architecture</text>
+  <text class="t muted sub" x="88" y="695">Functions keep their tools; trust follows a common contract.</text>
+  <g stroke="#06B6D4" stroke-width="2" fill="#ECFEFF">
+    <rect x="88" y="733" width="166" height="58" rx="8"/><rect x="302" y="713" width="166" height="58" rx="8"/><rect x="516" y="733" width="166" height="58" rx="8"/>
+    <rect x="88" y="908" width="166" height="58" rx="8"/><rect x="302" y="928" width="166" height="58" rx="8"/><rect x="516" y="908" width="166" height="58" rx="8"/>
+  </g>
+  <g class="t small" text-anchor="middle"><text x="171" y="769">Vulnerability</text><text x="385" y="749">IAM</text><text x="599" y="769">SOC</text><text x="171" y="944">AppSec</text><text x="385" y="964">Cloud / Infra</text><text x="599" y="944">Business risk</text></g>
+  <rect x="229" y="810" width="312" height="92" rx="10" fill="#CFFAFE" stroke="#0891B2" stroke-width="2"/>
+  <text class="t label" x="385" y="840" text-anchor="middle">Common architecture contract</text>
+  <text class="t tiny muted" x="385" y="867" text-anchor="middle">Objects • APIs • identity • authorization</text>
+  <text class="t tiny muted" x="385" y="889" text-anchor="middle">approval • evaluation • audit</text>
+  <g stroke="#0891B2" stroke-width="2" stroke-dasharray="6 6"><path d="M171 791 L267 826"/><path d="M385 771 V810"/><path d="M599 791 L503 826"/><path d="M171 908 L267 886"/><path d="M385 928 V902"/><path d="M599 908 L503 886"/></g>
+  <text class="t tiny muted" x="385" y="1010" text-anchor="middle">A shared contract, not a command center.</text>
+
+  <!-- 4. Measures -->
+  <rect class="panel" x="830" y="600" width="710" height="430" rx="10" stroke="#D97706"/>
+  <rect x="830" y="600" width="710" height="66" rx="9" fill="#FFFBEB"/>
+  <path d="M830 656 H1540" stroke="#FDE68A"/>
+  <circle cx="865" cy="633" r="18" fill="#D97706"/><text class="t white" x="865" y="640" font-size="20" font-weight="700" text-anchor="middle">4</text>
+  <text class="t h" x="896" y="641">Outcomes to measure</text>
+  <text class="t muted sub" x="858" y="695">Measure risk reduced, not agents deployed.</text>
+  <g>
+    <rect x="858" y="725" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="755" r="14" fill="#F59E0B"/><text class="t white" x="892" y="761" text-anchor="middle" font-size="14" font-weight="700">1</text><text class="t metric" x="920" y="762">Risk-weighted exposure duration</text>
+    <rect x="858" y="803" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="833" r="14" fill="#F59E0B"/><text class="t white" x="892" y="839" text-anchor="middle" font-size="14" font-weight="700">2</text><text class="t metric" x="920" y="840">No-touch processing rate</text>
+    <rect x="858" y="881" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="911" r="14" fill="#F59E0B"/><text class="t white" x="892" y="917" text-anchor="middle" font-size="14" font-weight="700">3</text><text class="t metric" x="920" y="909">Human touches and minutes</text><text class="t tiny muted" x="920" y="932">separate execution from validation</text>
+    <rect x="858" y="959" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="989" r="14" fill="#F59E0B"/><text class="t white" x="892" y="995" text-anchor="middle" font-size="14" font-weight="700">4</text><text class="t metric" x="920" y="987">Safe autonomy</text><text class="t tiny muted" x="920" y="1010">errors • rollbacks • exceptions • drift</text>
+  </g>
+
+  <text class="t muted" x="800" y="1082" text-anchor="middle" font-size="18">Federate execution. Standardize trust. Verify every state change.</text>
+</svg>

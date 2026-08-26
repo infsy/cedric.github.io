@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Modèle d’exécution cyber après Mythos</title>
+  <desc id="desc">Quatre panneaux distincts présentent le cycle opérationnel fermé, la mécanique d’automatisation, l’architecture fédérée et les résultats à mesurer.</desc>
+  <defs>
+    <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2563EB"/></marker>
+    <marker id="arrowViolet" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7C3AED"/></marker>
+    <style>
+      .t{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#0F172A}.muted{fill:#475569}.white{fill:#fff}.panel{fill:#fff;stroke-width:2}.h{font-weight:700;font-size:26px}.sub{font-size:18px}.label{font-size:20px;font-weight:650}.small{font-size:17px}.tiny{font-size:15px}.metric{font-size:19px;font-weight:650}
+    </style>
+  </defs>
+  <rect width="1600" height="1120" fill="#F8FAFC"/>
+  <text class="t" x="60" y="54" font-size="35" font-weight="750">Exécuter des contrôles éprouvés à la vitesse machine</text>
+  <text class="t muted" x="60" y="88" font-size="20">Quatre plans autonomes, reliés par des politiques, des preuves et une imputabilité communes</text>
+
+  <!-- 1. Cycle opérationnel -->
+  <rect class="panel" x="60" y="125" width="710" height="430" rx="10" stroke="#2563EB"/>
+  <rect x="60" y="125" width="710" height="66" rx="9" fill="#EFF6FF"/>
+  <path d="M60 181 H770" stroke="#BFDBFE"/>
+  <circle cx="95" cy="158" r="18" fill="#2563EB"/><text class="t white" x="95" y="165" font-size="20" font-weight="700" text-anchor="middle">1</text>
+  <text class="t h" x="126" y="166">Cycle opérationnel fermé</text>
+  <text class="t muted sub" x="88" y="220">Chaque étape produit l’entrée vérifiable de la suivante.</text>
+  <g>
+    <rect x="92" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="180" y="286" text-anchor="middle">Détecter</text>
+    <rect x="297" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="385" y="286" text-anchor="middle">Contextualiser</text>
+    <rect x="502" y="250" width="176" height="58" rx="8" fill="#EFF6FF" stroke="#93C5FD"/><text class="t label" x="590" y="286" text-anchor="middle">Décider</text>
+    <rect x="502" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="590" y="373" text-anchor="middle">Agir</text>
+    <rect x="297" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="385" y="373" text-anchor="middle">Vérifier</text>
+    <rect x="92" y="337" width="176" height="58" rx="8" fill="#DBEAFE" stroke="#60A5FA"/><text class="t label" x="180" y="373" text-anchor="middle">Apprendre</text>
+    <path d="M268 279 H290 M473 279 H495 M590 308 V330 M502 366 H480 M297 366 H275 M180 337 V316 M180 250 V237 H590 V243" fill="none" stroke="#2563EB" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  </g>
+  <rect x="88" y="430" width="654" height="94" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text class="t small" x="108" y="457" font-weight="700">Fil narratif ToolShell — distinct du cycle</text>
+  <text class="t tiny muted" x="108" y="483">Avis et exposition → contexte SharePoint local → correction, clés, chasse →</text>
+  <text class="t tiny muted" x="108" y="506">vérification indépendante du retour à un état sûr. Un correctif n’est pas une preuve.</text>
+
+  <!-- 2. Mécanique -->
+  <rect class="panel" x="830" y="125" width="710" height="430" rx="10" stroke="#7C3AED"/>
+  <rect x="830" y="125" width="710" height="66" rx="9" fill="#F5F3FF"/>
+  <path d="M830 181 H1540" stroke="#DDD6FE"/>
+  <circle cx="865" cy="158" r="18" fill="#7C3AED"/><text class="t white" x="865" y="165" font-size="20" font-weight="700" text-anchor="middle">2</text>
+  <text class="t h" x="896" y="166">Mécanique d’automatisation</text>
+  <text class="t muted sub" x="858" y="220">Employer le niveau le moins complexe qui suffit.</text>
+  <g>
+    <rect x="858" y="250" width="202" height="142" rx="9" fill="#FAF5FF" stroke="#C4B5FD"/>
+    <text class="t label" x="959" y="284" text-anchor="middle">Déterministe</text>
+    <text class="t tiny muted" x="959" y="316" text-anchor="middle">Collecter</text><text class="t tiny muted" x="959" y="340" text-anchor="middle">Normaliser</text><text class="t tiny muted" x="959" y="364" text-anchor="middle">Exécuter le répétable</text>
+    <rect x="1084" y="250" width="202" height="142" rx="9" fill="#F5F3FF" stroke="#A78BFA"/>
+    <text class="t label" x="1185" y="284" text-anchor="middle">IA d’aide</text>
+    <text class="t tiny muted" x="1185" y="316" text-anchor="middle">Corréler</text><text class="t tiny muted" x="1185" y="340" text-anchor="middle">Expliquer</text><text class="t tiny muted" x="1185" y="364" text-anchor="middle">Déclarer l’incertitude</text>
+    <rect x="1310" y="250" width="202" height="142" rx="9" fill="#EDE9FE" stroke="#8B5CF6"/>
+    <text class="t label" x="1411" y="284" text-anchor="middle">Agents bornés</text>
+    <text class="t tiny muted" x="1411" y="316" text-anchor="middle">Orchestrer</text><text class="t tiny muted" x="1411" y="340" text-anchor="middle">Agir dans la portée</text><text class="t tiny muted" x="1411" y="364" text-anchor="middle">Escalader l’exception</text>
+    <path d="M1060 321 H1077 M1286 321 H1303" stroke="#7C3AED" stroke-width="3" marker-end="url(#arrowViolet)"/>
+  </g>
+  <rect x="858" y="422" width="654" height="102" rx="8" fill="#FCFAFF" stroke="#DDD6FE"/>
+  <text class="t small" x="878" y="451" font-weight="700">Frontière de moindre autonomie</text>
+  <rect x="878" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="968" y="492" text-anchor="middle">Impact</text>
+  <rect x="1095" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="1185" y="492" text-anchor="middle">Réversibilité</text>
+  <rect x="1312" y="469" width="180" height="34" rx="17" fill="#EDE9FE"/><text class="t tiny" x="1402" y="492" text-anchor="middle">Confiance</text>
+
+  <!-- 3. Architecture fédérée -->
+  <rect class="panel" x="60" y="600" width="710" height="430" rx="10" stroke="#0891B2"/>
+  <rect x="60" y="600" width="710" height="66" rx="9" fill="#ECFEFF"/>
+  <path d="M60 656 H770" stroke="#A5F3FC"/>
+  <circle cx="95" cy="633" r="18" fill="#0891B2"/><text class="t white" x="95" y="640" font-size="20" font-weight="700" text-anchor="middle">3</text>
+  <text class="t h" x="126" y="641">Architecture fédérée</text>
+  <text class="t muted sub" x="88" y="695">Les fonctions gardent leurs outils; la confiance suit un contrat commun.</text>
+  <g stroke="#06B6D4" stroke-width="2" fill="#ECFEFF">
+    <rect x="88" y="733" width="166" height="58" rx="8"/><rect x="302" y="713" width="166" height="58" rx="8"/><rect x="516" y="733" width="166" height="58" rx="8"/>
+    <rect x="88" y="908" width="166" height="58" rx="8"/><rect x="302" y="928" width="166" height="58" rx="8"/><rect x="516" y="908" width="166" height="58" rx="8"/>
+  </g>
+  <g class="t small" text-anchor="middle"><text x="171" y="769">Vulnérabilités</text><text x="385" y="749">IAM</text><text x="599" y="769">SOC</text><text x="171" y="944">AppSec</text><text x="385" y="964">Cloud / Infra</text><text x="599" y="944">Risque métier</text></g>
+  <rect x="229" y="810" width="312" height="92" rx="10" fill="#CFFAFE" stroke="#0891B2" stroke-width="2"/>
+  <text class="t label" x="385" y="840" text-anchor="middle">Contrat d’architecture commun</text>
+  <text class="t tiny muted" x="385" y="867" text-anchor="middle">Objets • API • identité • autorisation</text>
+  <text class="t tiny muted" x="385" y="889" text-anchor="middle">approbation • évaluation • audit</text>
+  <g stroke="#0891B2" stroke-width="2" stroke-dasharray="6 6"><path d="M171 791 L267 826"/><path d="M385 771 V810"/><path d="M599 791 L503 826"/><path d="M171 908 L267 886"/><path d="M385 928 V902"/><path d="M599 908 L503 886"/></g>
+  <text class="t tiny muted" x="385" y="1010" text-anchor="middle">Contrat partagé, pas centre de commande.</text>
+
+  <!-- 4. Mesures -->
+  <rect class="panel" x="830" y="600" width="710" height="430" rx="10" stroke="#D97706"/>
+  <rect x="830" y="600" width="710" height="66" rx="9" fill="#FFFBEB"/>
+  <path d="M830 656 H1540" stroke="#FDE68A"/>
+  <circle cx="865" cy="633" r="18" fill="#D97706"/><text class="t white" x="865" y="640" font-size="20" font-weight="700" text-anchor="middle">4</text>
+  <text class="t h" x="896" y="641">Résultats à mesurer</text>
+  <text class="t muted sub" x="858" y="695">Mesurer le risque réduit, pas le nombre d’agents déployés.</text>
+  <g>
+    <rect x="858" y="725" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="755" r="14" fill="#F59E0B"/><text class="t white" x="892" y="761" text-anchor="middle" font-size="14" font-weight="700">1</text><text class="t metric" x="920" y="762">Durée d’exposition pondérée par le risque</text>
+    <rect x="858" y="803" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="833" r="14" fill="#F59E0B"/><text class="t white" x="892" y="839" text-anchor="middle" font-size="14" font-weight="700">2</text><text class="t metric" x="920" y="840">Traitement sans intervention humaine</text>
+    <rect x="858" y="881" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="911" r="14" fill="#F59E0B"/><text class="t white" x="892" y="917" text-anchor="middle" font-size="14" font-weight="700">3</text><text class="t metric" x="920" y="909">Interventions humaines</text><text class="t tiny muted" x="920" y="932">séparer exécution et validation</text>
+    <rect x="858" y="959" width="654" height="61" rx="8" fill="#FFFBEB" stroke="#FDE68A"/><circle cx="892" cy="989" r="14" fill="#F59E0B"/><text class="t white" x="892" y="995" text-anchor="middle" font-size="14" font-weight="700">4</text><text class="t metric" x="920" y="987">Autonomie sûre</text><text class="t tiny muted" x="920" y="1010">erreurs • retours arrière • exceptions • dérive</text>
+  </g>
+
+  <text class="t muted" x="800" y="1082" text-anchor="middle" font-size="18">Fédérez l’exécution. Standardisez la confiance. Vérifiez chaque changement d’état.</text>
+</svg>
