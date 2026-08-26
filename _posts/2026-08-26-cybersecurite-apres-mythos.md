@@ -16,7 +16,7 @@ featured:
 
 Dans [l’explorateur interactif d’Epoch AI](https://epoch.ai/data/cve?view=graph), la courbe des CVE publiées présente une rupture visuelle autour de l’annonce de Claude Mythos Preview. La tentation est forte d’y voir le début d’une vague de compromissions alimentée par l’IA. Ce serait aller plus loin que les données.
 
-> **Figure 1 — Publications de vulnérabilités et jalon Mythos.** [Explorer la visualisation interactive d’Epoch AI](https://epoch.ai/data/cve?view=graph). Les dates représentent la publication des CVE, pas leur découverte ni leur exploitation. Les pratiques des autorités de numérotation des CVE varient et introduisent du bruit. **Crédit : Epoch AI, « Data on Cyber Vulnerabilities », CC BY 4.0, consulté le 26 août 2026.**
+> **Figure 1 — Publications de vulnérabilités et jalon Mythos.** [Explorer la visualisation interactive d’Epoch AI](https://epoch.ai/data/cve?view=graph). Les dates représentent la publication des CVE, pas leur découverte ni leur exploitation. **Crédit : Epoch AI, « Data on Cyber Vulnerabilities », CC BY 4.0, consulté le 26 août 2026.**
 
 Ce graphique est un signal, pas une courbe des compromissions. Une CVE publiée n’équivaut pas à une vulnérabilité nouvellement découverte; une découverte n’équivaut pas à une exploitation; un exploit démontré en laboratoire n’équivaut pas à une exploitation massive dans la nature. Epoch dit d’ailleurs que le saut coïncide avec Mythos, sans lui attribuer une causalité unique.
 
