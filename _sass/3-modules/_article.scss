@@ -6,12 +6,6 @@
 
   &:hover {
     transform: translateY(-6px);
-
-    .article__image {
-      img {
-        transform: translate3d(0px, 0px, 0px) scale3d(1.04, 1.04, 1);
-      }
-    }
   }
 }
 
@@ -30,8 +24,8 @@
   position: relative;
   transform: translate(0);
   display: block;
-  min-height: 260px;
-  aspect-ratio: 3/2;
+  min-height: 0;
+  aspect-ratio: 16/9;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
   background: var(--background-alt-color);
@@ -40,16 +34,15 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     user-select: none;
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
     transform-style: preserve-3d;
     transition: transform .5s, opacity .5s ease;
   }
 
-  @supports not (aspect-ratio: 3/2) {
-    min-height: 260px;
-    padding-bottom: 70%;
+  @supports not (aspect-ratio: 16/9) {
+    padding-bottom: 56.25%;
   }
 
   @media (max-width: $mobile) {

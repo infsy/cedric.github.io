@@ -189,14 +189,13 @@
 .page-image {
   position: relative;
   transform: translate(0);
-  aspect-ratio: 1/1.25;
+  aspect-ratio: 16/9;
   border-radius: 12px;
   overflow: hidden;
   background: var(--background-alt-color);
 
-  @supports not (aspect-ratio: 1/1.25) {
-    padding-top: 125%;
-    min-height: 260px;
+  @supports not (aspect-ratio: 16/9) {
+    padding-top: 56.25%;
   }
 
   img {
@@ -209,13 +208,6 @@
     user-select: none;
   }
 
-  @media (max-width: $desktop) {
-    aspect-ratio: 3/2;
-
-    @supports not (aspect-ratio: 3/2) {
-      padding-top: 65%;
-    }
-  }
 }
 
 .page-image {
@@ -224,6 +216,10 @@
   @supports not (aspect-ratio: 3/2) {
     padding-top: 56.25%;
   }
+}
+
+.post-image img {
+  object-fit: contain;
 }
 
 .post-image-caption,
@@ -384,19 +380,13 @@
       transform: translate(0);
       display: block;
       min-width: 240px;
-      aspect-ratio: 3/2;
+      aspect-ratio: 16/9;
       border-radius: 12px;
       overflow: hidden;
       background-color: var(--background-alt-color);
 
-      @supports not (aspect-ratio: 3/2) {
+      @supports not (aspect-ratio: 16/9) {
         padding-top: 30%;
-      }
-
-      &:hover {
-        img {
-          transform: translate3d(0px, 0px, 0px) scale3d(1.04, 1.04, 1);
-        }
       }
 
       img {
@@ -405,7 +395,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
         transition: transform .5s ease;
       }
@@ -474,9 +464,9 @@
       .prev__image,
       .next__image {
         margin-bottom: 12px;
-        aspect-ratio: 3/2;
+        aspect-ratio: 16/9;
 
-        @supports not (aspect-ratio: 3/2) {
+        @supports not (aspect-ratio: 16/9) {
           padding-top: 56.25%;
         }
       }
